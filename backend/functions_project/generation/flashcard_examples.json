@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Unit 1 - Ex. 4",
+        "input": "Syllogism\nThis is a form of logical\nargumentation that\napplies deductive reason-\ning to reach a conclusion\nbased on two or more\npropositions that are\nassumed to be true.",
+        "front": "What is a Syllogism?",
+        "back": "A form of logical argumentation that applies deductive reasoning to reach a conclusion based on two or more propositions that are assumed to be true.",
+        "reasons": [
+            "The input is a block that can be understood on its own.",
+            "The flashcard briefly summarizes the block."
+        ]
+    },
+    {
+        "name": "Unit 1 - Ex. 5",
+        "input": "1. HISTORY OF ARTIFICIAL INTELLIGENCE\n\nIntroduction\n\nThis unit starts by providing an overview of artificial intelligence and then proceeds to\nexplain some of the details that make up this new technology. It will take you back to the\nyear 350 BC to illustrate how ideas about the artificial creation of intelligent processes\nhave evolved across the ages.",
+        "front": "",
+        "back": "",
+        "reasons": [
+            "The question is focused on one single value.",
+            "The answer is as short as possible and easy to be remembered."
+        ]
+    },
+    {
+        "name": "Unit 2 - Ex. 1",
+        "input": "Case-based systems store examples of concrete problems together with a successful\nsolution. When presented with a novel, previously unseen case, the system tries to\nretrieve a solution to a similar case and apply this solution to the case at hand. The key\nchallenge is to define a suitable similarity measure to compare problem settings.",
+        "front": "How do case-based systems work? (3)",
+        "back": "• Store examples of concrete problems with successful solutions\n• Retrieve a similar case's solution when presented with a novel problem\n• Key challenge: define a suitable similarity measure to compare problem settings",
+        "reasons": [
+            "The answer combines all relevant information.",
+            "The flashcard has a good size.",
+            "The question hints the user about the number of items on the backside."
+        ]
+    }
+]
