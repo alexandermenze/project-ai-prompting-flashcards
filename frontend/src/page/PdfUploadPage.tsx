@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import cn from "classnames";
 import { FileDown, FileUp } from "lucide-react";
 import { Fragment, ReactNode } from "react";
 import { useDropzone } from "react-dropzone";

@@ -4,8 +4,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { LoaderCircle, Send, StepForward } from "lucide-react";
 import { ReactNode, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { Api } from "@/lib/api";
+import cn from "classnames";
 
 export type ChatMessage = {
     sender: "user" | "assistant" | "unprocessed"
