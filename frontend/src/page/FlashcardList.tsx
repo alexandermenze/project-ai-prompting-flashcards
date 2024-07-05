@@ -6,6 +6,19 @@ import { Button } from "@/components/ui/button"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
 
 export default function FlashcardList(props: {
     flashcards: Api.Flashcard[],
@@ -41,9 +54,47 @@ export default function FlashcardList(props: {
                             </CardContent>
                             <CardFooter className="py-0 self-end">
                                 <div className="flex gap-4 justify-end w-full">
-                                    <Button variant="outline" size="icon" onClick={() => props.onEditFlashcard(flashcard)}>
-                                        <Edit size={16} />
-                                    </Button>
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="outline" size="icon" className="m-0">
+                                                <Edit size={16} />
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="min-w-[1000px] min-h-[700px]">
+                                            <DialogHeader>
+                                                <DialogTitle>Edit flashcard</DialogTitle>
+                                                <DialogDescription>
+                                                    Make changes to the flashcard
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <div className="grid gap-4 py-4 h-full">
+                                                <div className="grid grid-cols-4 items-center gap-4">
+                                                    <Label htmlFor="question" className="text-right">
+                                                        Question
+                                                    </Label>
+                                                    <Input
+                                                        id="question"
+                                                        defaultValue={flashcard.front}
+                                                        className="col-span-3"
+                                                    />
+                                                </div>
+                                                <div className="grid grid-cols-4 items-center gap-4">
+                                                    <Label htmlFor="answer" className="text-right">
+                                                        Answer
+                                                    </Label>
+                                                    <Textarea
+                                                        id="answer"
+                                                        defaultValue={flashcard.back}
+                                                        className="col-span-3 min-h-[600px]"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <DialogFooter>
+                                                <Button type="submit">Save changes</Button>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
+
 
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
