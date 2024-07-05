@@ -18,15 +18,19 @@ import {
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
 
 
 export default function FlashcardList(props: {
     flashcards: Api.Flashcard[],
     className: string,
-    onEditFlashcard: (flashcard: Api.Flashcard) => void,
+    onEditFlashcard: (flashcard: Api.Flashcard, updatedQuestion: string, updatedAnswer: string) => void,
     onDeleteFlashcard: (flashcard: Api.Flashcard) => void
     onExportFlashcards: () => void
 }) {
+
+    const [editFlashcardQuestion, setEditFlashcardQuestion] = useState<string>('')
+    const [editFlashcardAnswer, setEditFlashcardAnswer] = useState<string>('')
 
     if (props.flashcards.length === 0) {
         return (
@@ -56,7 +60,7 @@ export default function FlashcardList(props: {
                                 <div className="flex gap-4 justify-end w-full">
                                     <Dialog>
                                         <DialogTrigger asChild>
-                                            <Button variant="outline" size="icon" className="m-0">
+                                            <Button variant="outline" size="icon" className="m-0" onClick={() => { setEditFlashcardQuestion(flashcard.front); setEditFlashcardAnswer(flashcard.back) }}>
                                                 <Edit size={16} />
                                             </Button>
                                         </DialogTrigger>
@@ -75,6 +79,8 @@ export default function FlashcardList(props: {
                                                     <Input
                                                         id="question"
                                                         defaultValue={flashcard.front}
+                                                        value={editFlashcardQuestion}
+                                                        onChange={e => setEditFlashcardQuestion(e.target.value)}
                                                         className="col-span-3"
                                                     />
                                                 </div>
@@ -85,12 +91,14 @@ export default function FlashcardList(props: {
                                                     <Textarea
                                                         id="answer"
                                                         defaultValue={flashcard.back}
+                                                        value={editFlashcardAnswer}
+                                                        onChange={e => setEditFlashcardAnswer(e.target.value)}
                                                         className="col-span-3 min-h-[600px]"
                                                     />
                                                 </div>
                                             </div>
                                             <DialogFooter>
-                                                <Button type="submit">Save changes</Button>
+                                                <Button type="submit" onClick={() => props.onEditFlashcard(flashcard, editFlashcardQuestion, editFlashcardAnswer)}>Save</Button>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>

@@ -6,12 +6,20 @@ import { useCallback, useEffect, useState } from "react"
 import { Api } from "@/lib/api"
 import { toast } from "@/components/ui/use-toast"
 
+
+type UpdatedFlashcard = {
+    flashcard: Api.Flashcard;
+    updatedFront: string;
+    updatedBack: string;
+};
+
 export default function GenerationPage(props: { contentBlocks: string[] }) {
 
     const [remainingBlocks, setRemainingBlocks] = useState<string[]>(props.contentBlocks)
     const [history, setHistory] = useState<Api.CompletionMessage[]>([])
     const [flashcards, setFlashcards] = useState<Api.Flashcard[]>([])
     const [deletedFlashcards, setDeletedFlashcards] = useState<Api.Flashcard[]>([])
+    const [updatedFlashcards, setUpdatedFlashcards] = useState<UpdatedFlashcard[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
 
@@ -43,7 +51,16 @@ export default function GenerationPage(props: { contentBlocks: string[] }) {
                         deletedFlashcard.front === flashcard.front &&
                         deletedFlashcard.back === flashcard.back) === false)
 
-                collectedFlashcards.push(...notDeletedFlashcards)
+                const updated = notDeletedFlashcards.map((flashcard) => {
+                    const update = updatedFlashcards.find((u) => u.flashcard.front === flashcard.front && u.flashcard.back === flashcard.back)
+
+                    if (update === undefined)
+                        return flashcard
+
+                    return { front: update.updatedFront, back: update.updatedBack } as Api.Flashcard
+                })
+
+                collectedFlashcards.push(...updated)
 
                 if (allFlashcards.length > 0)
                     return { sender: message.sender, isText: false, content: "Here you go", flashcards: allFlashcards } as ChatMessage
@@ -63,7 +80,7 @@ export default function GenerationPage(props: { contentBlocks: string[] }) {
         setChatMessages([...processedMessages, ...unprocessedMessages])
         setFlashcards(collectedFlashcards)
 
-    }, [remainingBlocks, history, deletedFlashcards])
+    }, [remainingBlocks, history, deletedFlashcards, updatedFlashcards])
 
     const loadNextCompletion = useCallback(async (): Promise<void> => {
 
@@ -134,7 +151,14 @@ export default function GenerationPage(props: { contentBlocks: string[] }) {
 
     }, [loadNextCompletion, loading])
 
-    useEffect(updateChatMessages, [history, remainingBlocks, deletedFlashcards])
+    const updateFlashcard = useCallback((flashcard: Api.Flashcard, updatedFront: string, updatedBack: string) => {
+
+        const updatedFlashcard: UpdatedFlashcard = { flashcard: flashcard, updatedFront, updatedBack }
+        setUpdatedFlashcards([...updatedFlashcards, updatedFlashcard])
+
+    }, [flashcards, updatedFlashcards])
+
+    useEffect(updateChatMessages, [history, remainingBlocks, deletedFlashcards, updatedFlashcards])
 
     return (
         <ResizablePanelGroup direction="horizontal">
@@ -147,7 +171,7 @@ export default function GenerationPage(props: { contentBlocks: string[] }) {
                     <p className="flex-grow-0 flex-none">Flashcards</p>
 
                     <FlashcardList className="flex-grow" flashcards={flashcards}
-                        onEditFlashcard={console.log}
+                        onEditFlashcard={updateFlashcard}
                         onDeleteFlashcard={flashcard => setDeletedFlashcards([...deletedFlashcards, flashcard])}
                         onExportFlashcards={() => downloadFlashcardsCSV(flashcards, "flashcards.csv")} />
                 </div>
