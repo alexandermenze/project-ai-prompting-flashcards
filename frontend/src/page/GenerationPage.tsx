@@ -1,7 +1,7 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import FlashcardList from "./FlashcardList"
 import Chat, { ChatMessage } from "./Chat"
-import { downloadFlashcardsCSV } from "@/lib/export"
+import { downloadFlashcardsCSV } from "@/mod/export"
 import { useCallback, useEffect, useState } from "react"
 import { Api } from "@/lib/api"
 import { toast } from "@/components/ui/use-toast"
