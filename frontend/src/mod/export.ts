@@ -1,4 +1,4 @@
-import { Api } from "@/lib/api"
+import { Api } from "@/mod/api"
 import { createObjectCsvStringifier } from "csv-writer"
 
 export function toCSVString(flashcards: Api.Flashcard[]): string {

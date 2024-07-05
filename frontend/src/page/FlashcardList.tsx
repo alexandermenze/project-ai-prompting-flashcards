@@ -1,4 +1,4 @@
-import { Api } from "@/lib/api"
+import { Api } from "@/mod/api"
 import { CircleSlash2, Edit, Share, Trash } from "lucide-react"
 import classNames from 'classnames'
 import { Card, CardContent, CardFooter } from "@/components/ui/card"

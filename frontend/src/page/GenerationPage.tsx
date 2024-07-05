@@ -3,7 +3,7 @@ import FlashcardList from "./FlashcardList"
 import Chat, { ChatMessage } from "./Chat"
 import { downloadFlashcardsCSV } from "@/mod/export"
 import { useCallback, useEffect, useState } from "react"
-import { Api } from "@/lib/api"
+import { Api } from "@/mod/api"
 import { toast } from "@/components/ui/use-toast"
 
 
